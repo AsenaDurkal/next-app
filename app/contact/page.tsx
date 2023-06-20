@@ -1,13 +1,14 @@
+import { Header } from "@/components/Header";
+
 function Contact(){
     return(
-        <main>
-            <h1 className="text-2xl font-extrabold">
-            <div>
-                <p>
-                    To contact, please send an email.
-                </p>
-            </div>
-            </h1>
+        <main className="mt-6">
+            
+                <Header>Contact Page</Header>
+                <p  className="mt-5">
+                    To contact, please send an email to the following address: asena.durkal@gmail.com
+                </p>           
+           
            
         </main>
     );
