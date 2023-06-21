@@ -48,6 +48,7 @@ function Dishes(){
             
                 <Header>Dishes</Header>
                 <p  className="mt-5"> List of recipes</p>
+                {isError && <p>Error!!!</p>}
                 {isLoading && <p>Loading...</p>}   
                 <div>{dishes && dishes.map((elem)=>{
                     return(
