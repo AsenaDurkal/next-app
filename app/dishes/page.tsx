@@ -1,5 +1,8 @@
+"use client";
 import { Header } from "@/components/Header";
-import { useState } from "react";
+import { fail } from "assert";
+import { useState, useEffect} from "react";
+
 
 const mockdishes = [{
 
@@ -16,21 +19,39 @@ const mockdishes = [{
 ];
 interface Dish{
     id:string;
-    Name:string;
-    categories:string
+    fields:{
+        Name:string;
+        categories:string
+    }
 } 
 function Dishes(){
-
+    const[isLoading,setIsLoading]= useState(true);
+    const[isError,setIsError]= useState(false);
     const [dishes, setDishes] = useState<Dish[] | null>(null);
+
+    useEffect(()=>{
+        fetch('/dishes/api')
+        .then(response => response.json())
+        .then(data=> {
+            setDishes(data);
+        })
+        .catch(()=>{
+            setIsError(true);
+        })
+        .finally(()=>{
+            setIsLoading(false);
+        });
+    }, []);
 
     return(
         <main className="mt-6">
             
                 <Header>Dishes</Header>
-                <p  className="mt-5"> List of recipes</p>   
+                <p  className="mt-5"> List of recipes</p>
+                {isLoading && <p>Loading...</p>}   
                 <div>{dishes && dishes.map((elem)=>{
                     return(
-                        <div key={elem.id}>{elem.Name},{elem.categories}</div>
+                        <div key={elem.id}>{elem.fields.Name},{elem.fields.categories}</div>
                     )
                 })}</div>           
         </main>
